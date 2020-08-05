@@ -20,12 +20,13 @@ const Cart = ({ getProductCart }) => {
   const soluongs = []
   const soluongnew=[];
   const [MangCart, setMangCart] = useState()
-  const sss = "[" + ojb + "]"
-  const getItemCartLocalStorage = JSON.parse(sss);
+  const taoMang = "[" + ojb + "]"
+  const getItemCartLocalStorage = JSON.parse(taoMang);
   const mang = getItemCartLocalStorage
   mang.map(cart =>
-    {mangNew.push(Number(cart.idSP))
-      mangHT.push(cart)
+    {
+    mangNew.push(Number(cart.idSP))
+    mangHT.push(cart)
     }
   )
   ////////////////////////////////
@@ -233,7 +234,7 @@ const onHandleClickUpdateCart=(product)=>{
 
                   <div className="row">
                     <div className="col-md-12">
-                      <button className="btn btn-primary btn-lg py-3 btn-block" onClick={onHandleClickCheckout} >Thanh Toán</button>
+                      <Link className="btn btn-primary btn-lg py-3 btn-block" onClick={onHandleClickCheckout} to="/Store/Checkout">Đi đến đặt hàng</Link>
                     </div>
                   </div>
                 </div>

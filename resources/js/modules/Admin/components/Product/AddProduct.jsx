@@ -17,6 +17,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
     const album = useSelector(state => state.product.album);
     const [AlbumProduct, setAlbumProduct] = useState(album)
     const [pictures, setPictures] = useState();
+    
     const onDrop = picture => {
         setPictures(picture);
     };
@@ -29,6 +30,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
     }
     const handleUpdateAvatarProduct=()=>{
         const uploadTask = storage.ref(`images/${imageAvatar.name}`).put(imageAvatar);
+            console.log(uploadTask)
             uploadTask.on(
                 "state_changed",
                 snapshot => {},
@@ -51,6 +53,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
     // }
     const albumImage = []
     const handleUpdate=()=>{
+        console.log(555555,pictures)
         pictures.map((image)=>{
             const uploadTask = storage.ref(`images/${image.name}`).put(image);
             uploadTask.on(
@@ -165,10 +168,11 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                             <p className="mb-1 mt-4 font-weight-bold">Anh</p>
                                                             <div className="input-group mb-3">
                                                             <div className="input-group-prepend">
-                                                                <span className="input-group-text" id="inputGroupFileAddon01" onClick={handleUpdateAvatarProduct} >Upload</span>
+                                                                <span className="input-group-text" style={{height:'38px'}} id="inputGroupFileAddon01" onClick={handleUpdateAvatarProduct} >Upload</span>
                                                             </div>
                                                             <div className="custom-file">
-                                                                <input type="file" onChange={handleChange} className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
+                                                                <input type="file" onChange={handleChange} className="custom-file-input"
+                                                                 id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
                                                                 <label className="custom-file-label" >Thêm ảnh vào album</label>
                                                             </div>
                                                             <div className="rounded m-2" style={{
@@ -177,6 +181,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                             }}></div>
                                                             </div>
                                                         </div>
+                                                        <p className="mb-1 mt-4 font-weight-bold">Album</p>
                                                   
                                                    {pictures&&<button type="button" onClick={handleUpdate} className="btn btn-primary">Update</button>}
                                                     <ImageUploader
@@ -186,7 +191,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                         maxFileSize={5242880}
                                                     />
                                                     <div className="row">
-
                                                     {album&&album.map((image,index)=>
                                                             <div className="rounded m-2" key={index} onClick={()=>handleDeleteImage(index)} style={{backgroundImage:`url(${image})`,width:'150px',height:'150px',backgroundSize: 'cover',
                                                                 backgroundRepeat: 'no-repeat',

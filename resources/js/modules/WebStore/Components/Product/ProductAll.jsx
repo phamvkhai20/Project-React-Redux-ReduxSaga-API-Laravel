@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-const ProductAll = ({GetProduct}) => {
+const ProductAll = ({GetProduct,GetCategory}) => {
   useEffect(() => {
     GetProduct()
+    GetCategory()
   }, [])
+  const dispatch = useDispatch()
+  const categories = useSelector(state => state.category.categories)
   const Products = useSelector(state => state.product.products);
-  console.log(Products)
     return (
         <div className="container">
         <div className="row mb-5">
@@ -21,9 +23,9 @@ const ProductAll = ({GetProduct}) => {
                     Latest
                   </button>
                   <div className="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                    <a className="dropdown-item" href="#">Men</a>
-                    <a className="dropdown-item" href="#">Women</a>
-                    <a className="dropdown-item" href="#">Children</a>
+                  {categories&&categories.map((cate,index)=>
+                    <Link className="dropdown-item" key={index} to={`/Store/Category/${cate.id}`}>{cate.name_category}</Link>
+                  )}
                   </div>
                 </div>
                 <div className="btn-group">
@@ -81,9 +83,10 @@ const ProductAll = ({GetProduct}) => {
           <div className="border p-4 rounded mb-4">
             <h3 className="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
             <ul className="list-unstyled mb-0">
-              <li className="mb-1"><a href="#" className="d-flex"><span>Men</span> <span className="text-black ml-auto">(2,220)</span></a></li>
-              <li className="mb-1"><a href="#" className="d-flex"><span>Women</span> <span className="text-black ml-auto">(2,550)</span></a></li>
-              <li className="mb-1"><a href="#" className="d-flex"><span>Children</span> <span className="text-black ml-auto">(2,124)</span></a></li>
+            {categories&&categories.map((cate,index)=>
+
+              cate.id!==0&&<li onClick={()=>dispatch(getProductCategory(cate.id))}  className="mb-1" key={index}><Link className="d-flex" to={`/Store/Category/${cate.id}`}><span>{cate.name_category}</span> <span className="text-black ml-auto">({cate.product.length})</span></Link></li>
+                  )}
             </ul>
           </div>
 

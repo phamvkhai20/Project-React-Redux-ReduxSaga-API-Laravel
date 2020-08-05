@@ -24,7 +24,7 @@ const ProductHome = ({ GetProduct }) => {
               <Link  to={`/Store/Product/${product.id}`} ><h3><a href="shop-single.html">{product.name_product.substr(0,40)}. </a></h3></Link>
                 <p className="mb-0">{product.mota.substr(0,60)}...</p>
                 <p className="text-primary font-weight-bold">{product.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</p>
-                <Link style={{buttom:"10px"}} className="btn btn-primary mb-4" to={`/Store/Product/${product.id}`} style={{ width: '60%' ,buttom:'5px'}}>Mua ngay</Link>
+                <Link style={{buttom:"10px"}} className="btn btn-primary mb-4" to={`/Store/Product/${product.id}`} style={{ width: '60%' , bottom: '-10px',top:'415px',right:'50px',  position: 'absolute'}}>Mua ngay</Link>
               </div>
             </div>
           </div>) : ''
