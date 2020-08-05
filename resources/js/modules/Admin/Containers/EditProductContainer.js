@@ -6,11 +6,15 @@ const GetProduct = () => {
 const SuaSanPham = (product) => {
   return { type: 'SUA_SAN_PHAM',product:product }
 }
+const GetCategory = () => {
+  return { type: 'LAY_TAT_CA_DANH_MUC' }
+}
 const mapDispatchToProps = dispatch => {
     return {
         
         GetProduct: () => dispatch(GetProduct()),
-        SuaSanPham:(product)=> dispatch(SuaSanPham(product))
+        SuaSanPham:(product)=> dispatch(SuaSanPham(product)),
+        GetCategory:()=>dispatch(GetCategory())
     }
   }
 export default connect(null, mapDispatchToProps)(EditProduct)

@@ -18,7 +18,6 @@ function* layThongTinDangKi(infoDangKi) {
     
   }
 }
-
 export default function* Register() {
   yield takeLatest("LAY_THONG_TIN_DANG_KI", layThongTinDangKi);
 }

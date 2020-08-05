@@ -6,7 +6,8 @@ import { all } from "redux-saga/effects";
 import Register from "../Auth/Api/RegisterSaga";
 import Logout from "../Auth/Api/LogoutSaga";
 import getUser from "../Auth/Api/GetUserSaga";
-import { getProduct, DeleteProduct, EditProduct } from "../Admin/Api/ProductSaga";
+import { getProduct, DeleteProduct, EditProduct, AddProduct, SingleProduct, getProductCart, getProductCategory } from "../Admin/Api/ProductSaga";
+import { getCategories, AddCategory, DeleteCategory, EditCategory } from "../Admin/Api/CategorySaga";
 
 function* rootsaga(){
     yield all([
@@ -16,7 +17,15 @@ function* rootsaga(){
         getUser(),
         getProduct(),
         DeleteProduct(),
-        EditProduct()
+        EditProduct(),
+        getCategories(),
+        AddProduct(),
+        SingleProduct(),
+        getProductCart(),
+        AddCategory(),
+        DeleteCategory(),
+        EditCategory(),
+        getProductCategory(),
     ])
 }
 const sagaMiddleware = createSagaMiddleware();

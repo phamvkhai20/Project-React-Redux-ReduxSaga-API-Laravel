@@ -33,8 +33,21 @@ function(){
     Route::get('/', 'Api\ProductController@index');
     Route::get('/{product}', 'Api\ProductController@show');
     Route::post('add', 'Api\ProductController@store');
+    Route::get('/getProductCategory/{id}', 'Api\ProductController@showTheoCategory');
     Route::post('update/{product}', 'Api\ProductController@update');
+    Route::get('cart/{arr}', 'Api\ProductController@cart');
     Route::post('delete/{product}', 'Api\ProductController@destroy');
+});
+
+Route::group([
+    'prefix' => 'category'
+],
+function(){
+    Route::get('/', 'Api\CategoryController@index');
+    Route::get('/{category}', 'Api\CategoryController@show');
+    Route::post('add', 'Api\CategoryController@store');
+    Route::post('update/{category}', 'Api\CategoryController@update');
+    Route::post('delete/{category}', 'Api\CategoryController@destroy');
 });
 
 

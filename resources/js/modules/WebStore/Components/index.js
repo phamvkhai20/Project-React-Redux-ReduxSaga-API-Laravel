@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Header from './Layout/Header'
 import Footer from './Layout/Footer'
 import {
     BrowserRouter as Router,
@@ -10,13 +9,26 @@ import {
   } from "react-router-dom";
 import HomePage from './Home';
 import { useSelector } from 'react-redux';
-const WebStore = props => {
+import SingleProductContainer from '../Containers/SingleProductContainer';
+import HeaderContainer from '../Containers/HeaderContainer';
+import ShopContainer from '../Containers/ShopContainer';
+import CarContainer from '../Containers/CarContainer';
+import ProductCategoryContainer from '../Containers/ProductCategoryContainer';
+const WebStore = ({GetCategory,LayTokenDangXuat}) => {
     const user = useSelector(state => state.auth.infoUser);
     return (
     <div className="site-wrap" style={{backgroundColor:"#fff"}}>
-        <Header  />
+        <HeaderContainer/>
             <Switch>
-                <Route exact path='/' component={HomePage}/>
+            <Route exact path='/Store/' component={HomePage}/>
+            <Route exact path='/' component={HomePage}/>
+            <Route exact path='/Store/Cart/' component={CarContainer}/>
+            <Route exact path='/Store/Product/:id'  component={SingleProductContainer}/>
+            <Route exact path='/Store/Category/:id'  component={ProductCategoryContainer}/>
+            <Route path='/Store/Shop/'>
+                 <ShopContainer />
+            </Route>
+            {/* <Route exact path='/Store/category/:id' component={CarContainer}/> */}
             </Switch>
         <Footer />
     </div>

@@ -6,11 +6,16 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { setIsAdd } from '../../Actions/Product';
+import { useDispatch } from 'react-redux';
 const Sidebar = props => {
+    const dispatch= useDispatch();
+    const onHandleClick = () => {
+        dispatch(setIsAdd())
+    }
     return (
         <div className="left side-menu">
         <div className="slimscroll-menu" id="remove-scroll">
-
             <div id="sidebar-menu">
                 <ul className="metismenu" id="side-menu">
                     <li className="menu-title">Navigation</li>
@@ -25,13 +30,11 @@ const Sidebar = props => {
                         <a href="# " onClick={e => {void(0),e.preventDefault()}}><i className="fi-briefcase"></i> <span> Sản phẩm </span> <span className="menu-arrow"></span></a>
                         <ul className="nav-second-level" aria-expanded="false">
                             <li><Link to="/Admin/ListProduct">Danh sách</Link></li>
-                            <li> <Link to="/Admin/AddProduct">Thêm sản phẩm</Link></li>
+                            <li> <Link to="/Admin/AddProduct"  onClick={onHandleClick}>Thêm sản phẩm</Link></li>
                         </ul>
                     </li>
-                    
                     <li>
-                        <Link to="/"><i className="fi-briefcase"></i> <span> Xem Website </span> <span className="menu-arrow"></span></Link>
-                       
+                        <Link to="/Store/"><i className="fi-briefcase"></i> <span> Xem Website </span> <span className="menu-arrow"></span></Link>
                     </li>
                 </ul>
             </div>

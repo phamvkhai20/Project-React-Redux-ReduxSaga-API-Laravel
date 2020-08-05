@@ -9,29 +9,29 @@ import {
     Link,
     Redirect
   } from "react-router-dom";
-import AddProduct from './Product/AddProduct';
 import HeaderContainer from '../Containers/HeaderContainer';
-import AddCategory from './Category/AddCategory';
-import ListCategory from './Category/ListCategory';
-import SingleCategory from './Category/SingleCategory';
 import ListProductContainer from '../Containers/ListProductContainer';
 import { useSelector } from 'react-redux';
 import EditProductContainer from '../Containers/EditProductContainer';
-
+import AddProductContainer from '../Containers/AddProductContainer';
+import ListCategoryContainer from '../Containers/ListCategoryContainer';
+import AddCategoryContainer from '../Containers/AddCategoryContainer';
 function Example() {
 const isUpdate = useSelector(state => state.product.isUpdateProduct)
+const isAddProduct = useSelector(state => state.product.isAddProduct)
     return (
         <div>
             <HeaderContainer />
             <Sidebar />
-               <Route exact  path="/Admin/AddProduct" component={AddProduct} />
+               <Route exact  path="/Admin/AddProduct">
+                  {isAddProduct?  <Redirect to="/Admin/ListProduct"  />:  <AddProductContainer />}
+               </Route>
                <Route exact path="/Admin/ListProduct"  component={ListProductContainer}/>
                <Route exact  path="/Admin/Product/:id">
                   { isUpdate ? <Redirect to="/Admin/ListProduct"  /> : <EditProductContainer /> }
                 </Route>
-               <Route exact  path="/Admin/AddCategory" component={AddCategory} />
-               <Route exact path="/Admin/ListCategory"  component={ListCategory}/>
-               <Route exact  path="/Admin/Category/:id"  component={SingleCategory}/>
+               <Route exact  path="/Admin/AddCategory" component={AddCategoryContainer} />
+               <Route exact path="/Admin/ListCategory"  component={ListCategoryContainer}/>
             <Footer />
         </div>
     );

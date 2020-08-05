@@ -3,11 +3,26 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProductUpdate, setIsUpdate } from '../../Actions/Product';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const EditProduct = ({GetProduct,SuaSanPham}) => {
+const EditProduct = ({GetProduct,SuaSanPham,GetCategory}) => {
+    const productUpdate = useSelector(state => state.product.updateProduct)
     const { register, handleSubmit, watch, errors } = useForm();
     const dispatch = useDispatch();
-    const onSubmit = data =>{ dispatch(setProductUpdate(Product));SuaSanPham(Product)};
+    const onSubmit = data =>{
+        dispatch(setProductUpdate(Product));
+        SuaSanPham(Product)
+    };
+    const categories = useSelector(state => state.category.categories)
+    !categories ? GetCategory() :''
+
+    const onHandleOnchange= (e,editor)=>{
+        const datas= editor.getData();
+        setProduct({...Product,content:datas})
+    }
+
+
     const { id } = useParams()
     useEffect(() => {
         GetProduct()
@@ -16,37 +31,17 @@ const EditProduct = ({GetProduct,SuaSanPham}) => {
     const ProductAll = useSelector(state => state.product.products)
     if(ProductAll&&!Product){
        const product1= ProductAll.find((p)=> p.id==id )
-       setProduct(product1)
+       if(productUpdate&&productUpdate.id==product1.id){
+        setProduct(productUpdate)
+       }else {
+        setProduct(product1)
+       }
     }
     const onHandleChange=(event)=>{
         const {name,value}=event.target;
         setProduct({...Product,[name]:value})
-        console.log(Product)
     }
-     $(document).ready(function () {
-                if($("#elm1").length > 0){
-                    tinymce.init({
-                        selector: "textarea#elm1",
-                        theme: "modern",
-                        height:300,
-                        plugins: [
-                            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                            "save table contextmenu directionality emoticons template paste textcolor"
-                        ],
-                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
-                        style_formats: [
-                            {title: 'Bold text', inline: 'b'},
-                            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-                            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-                            {title: 'Example 1', inline: 'span', classes: 'example1'},
-                            {title: 'Example 2', inline: 'span', classes: 'example2'},
-                            {title: 'Table styles'},
-                            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-                        ]
-                    });
-                }
-            });
+
     return (
         <div className="content-page">
             <div className="content">
@@ -70,7 +65,7 @@ const EditProduct = ({GetProduct,SuaSanPham}) => {
                     <form onSubmit={handleSubmit(onSubmit)} onChange={onHandleChange} className="row">
                         <div className="col-xl">
                             <div className="card-box">
-                                <h4 className="header-title">Transactions History</h4>
+                                <h4 className="header-title">Sửa sản phẩm</h4>
                                 <div className="row">
                             <div className="col-sm-12">
                             <div className="card-box">
@@ -78,48 +73,64 @@ const EditProduct = ({GetProduct,SuaSanPham}) => {
                                         <div className="col-md-6">
                                             <div className="">
 
-                                                <p className="mb-1 mt-4 font-weight-bold">Tiêu đề</p>
-                                               
-                                                <input   type="text"  className="form-control" value={Product.name_product}  name="name_product" ref={register({required: true})} />
-
-                                                {errors.tieude && <span>This field is required</span>}
-
-
+                                                <p className="mb-1 mt-4 font-weight-bold">Tên sản phẩm</p>
+                                                <input   type="text"  className="form-control" value={Product.name_product}  name="name_product" 
+                                                ref={register({ required: "Không bỏ trống tên sản phẩm",
+                                                })} />
+                                                <small style={{color:"red"}}>{errors.name_product && errors.name_product.message}</small>
+                                                
                                                 <div>
                                                     <p className="mb-1 mt-4 font-weight-bold">Ảnh</p>
-                                                    
                                                     <input   type="text"  name="image" value={Product.image} className="form-control" ref={register({required: true})} />
                                                 </div>
-
                                                 <div>
                                                     <p className="mb-1 mt-4 font-weight-bold">Danh mục</p>
                                                     <select   type="text" className="form-control"  name="category_id"  ref={register({required: true})} >
-                                                        <option value={Product.category_id} >{Product.category_id}</option>
+                                                        
+                                                        {categories&&categories.map((cate,index)=> 
+                                                            cate.id!==Number(Product.category_id)?<option key={index} value={cate.id} >{cate.name_category}</option>:<option  selected="selected" value={cate.id} >{cate.name_category}</option>
+                                                        )}
                                                     </select>
                                                 </div>
-
                                             </div>
                                         </div>
 
                                         <div className="col-md-6">
-                                            <div className="">
-
-                                                <p className="mb-1 mt-4 font-weight-bold">Giá</p>
-                                               
-                                                <input   type="number" className="form-control" value={Product.price}  name="price" ref={register({required: true})}/>
-
-                                                <div>
-                                                    <p className="mb-1 mt-4 font-weight-bold">Giá Cũ</p>
-                                                    
-                                                    <input   type="number" className="form-control" value={Product.old_price}  name="old_price"  ref={register({required: true})} />
+                                                <div className="row" >
+                                                    <div  className="col-md-6">
+                                                    <p className="mb-1 col-md-6 mt-4 font-weight-bold">Giá</p>
+                                                    <input   type="number" className="form-control float-left" value={Product.price}  name="price" ref={register({required: true})}/>
+                                                    </div>
+                                                    <div  className="col-md-6">
+                                                    <p className="mb-1 mt-4 font-weight-bold">Giá sale</p>
+                                                    <input   type="number" className="form-control float-left" value={Product.old_price}  name="old_price"  ref={register({required: true})} />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                               
+                                                <div>
+                                                    <p className="mb-1 mt-4 font-weight-bold">Mô tả</p>
+                                                    <input   type="text" className="form-control"  name="mota" id="placement" value={Product.mota}  ref={register} />
+                                                    <small style={{color:"red"}}>{errors.mota && <span>Không bỏ trống mô tả</span>}</small>
+                                                </div>
+                                                <div>
+                                                    <p className="mb-1 mt-4 font-weight-bold">Số lượng</p>
+                                                    <input   type="text" className="form-control"  name="soluong" id="placement" value={Product.soluong}  ref={register} />
+                                                    <small style={{color:"red"}}>{errors.mota && <span>Không bỏ trống mô tả</span>}</small>
+                                                </div>
                                         </div>
 
                                         <div className="col-md">
                                             <div className="">
-                                                <p className="mb-1 mt-4 font-weight-bold">Nội dung</p>
-                                                <textarea onChange={onHandleChange}  id="elm1" name="content">{Product.content}</textarea>
+                                                <p className="mb-1 mt-4 font-weight-bold">Mô tả</p>
+                                                <CKEditor
+                                                    config={{ckfinder: {
+                                                            // Upload the images to the server using the CKFinder QuickUpload command.
+                                                            uploadUrl: 'https://cksource.com/weuy2g4ryt278ywiue/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                                                            }}}
+                                                    data={Product.content}
+                                                    editor={ ClassicEditor }
+                                                    onChange={onHandleOnchange}
+                                                />
                                             </div>
                                         </div>
                                     </div>

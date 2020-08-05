@@ -7,10 +7,18 @@ const layThongTinUser = (token) => {
 const GetProduct = () => {
   return { type: 'LAY_TAT_CA_SAN_PHAM' }
 }
+const GetCategory = () => {
+  return { type: 'LAY_TAT_CA_DANH_MUC' }
+}
+const LayTokenDangXuat = (token) => {
+    return { type: 'LAY_THONG_TIN_DANG_XUAT', token:token }
+}
 const mapDispatchToProps = dispatch => {
     return {
         layThongTinUser: (token) => dispatch(layThongTinUser(token)),
-        GetProduct:()=>dispatch(GetProduct())
+        GetProduct:()=>dispatch(GetProduct()),
+        GetCategory: () => dispatch(GetCategory()),
+        LayTokenDangXuat:(token) => dispatch(LayTokenDangXuat(token))
     }
   }
 export default connect(null, mapDispatchToProps)(Routes)

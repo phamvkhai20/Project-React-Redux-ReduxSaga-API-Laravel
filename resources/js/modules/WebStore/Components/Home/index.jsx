@@ -4,10 +4,12 @@ import ProductHome from '../Product/ProductHome'
 import Banner1 from '../Banner/Banner1'
 import { useSelector } from 'react-redux'
 import ProductHomeContainer from '../../Containers/ProductHomeContainer'
+import SingleProduct from '../Product/SingleProduct'
+import { Switch } from 'antd'
+import { Route } from 'react-router-dom'
 
 const HomePage = () => {
     const users = useSelector(state => state.auth.infoUser);
-    console.log(users);
     return (
         <div >
             <Banner1 />

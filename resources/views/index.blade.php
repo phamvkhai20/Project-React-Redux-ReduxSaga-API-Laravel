@@ -10,6 +10,7 @@
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico ')}}">
     <!-- App css -->
@@ -28,10 +29,11 @@
     <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
 </head>
 <body>
-
     <div id="root">
     </div>
-
+    <script >
+            
+    </script>
     <script src="{{ asset('dist/app.js') }}"></script>
     <!-- jQuery  -->
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>

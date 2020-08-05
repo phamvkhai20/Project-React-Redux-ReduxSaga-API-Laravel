@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux';
-
-const Header = props => {
+import { useSelector, useDispatch } from 'react-redux';
+import { setItemCart } from '../../Actions/Cart';
+const Header = ({LayTokenDangXuat,getProductCategory}) => {
+  
+  const dispatch = useDispatch()
   const user = useSelector(state => state.auth.infoUser);
+  const token = localStorage.getItem('access_token');
+  const categories = useSelector(state => state.category.categories)
+  const cart = useSelector(state => state.cart.totalProduct)
+  const [TotalCart, setTotalCart] = useState()
+  const ojb = localStorage.getItem('cart');
+  if (ojb) {
+    const sss = "[" + ojb + "]"
+    const getItemCartLocalStorage = JSON.parse(sss);
+    const mang = getItemCartLocalStorage
+    !TotalCart&&setTotalCart(mang.length)
+  }
   return (
     <header className="site-navbar" role="banner">
       <div className="site-navbar-top">
@@ -27,7 +40,7 @@ const Header = props => {
             <div className="col-6 col-md-4 order-3 order-md-3 text-right">
               <div className="site-top-icons">
                 <ul>
-                  <li className=" dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a href="#"><span className="icon icon-person "></span></a></li>
+                  <li className=" dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a href="#"><span style={{fontSize:'25px',marginTop:'10px'}} className="icon icon-person "> </span><span> {user.name} </span> </a></li>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="#">Thông tin cá nhân</a>
                       <a className="dropdown-item" href="#">Đơn hàng</a>
@@ -36,14 +49,14 @@ const Header = props => {
                       : ''
                       }
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">Đăng xuất</a>
+                      <a className="dropdown-item" href="#" onClick={()=>LayTokenDangXuat(token)} >Đăng xuất</a>
                     </div>
                   <li><a href="#"><span className="icon icon-heart-o"></span></a></li>
                   <li>
-                    <a href="cart.html" className="site-cart">
+                    <Link to="/Store/Cart"  className="site-cart">
                       <span className="icon icon-shopping_cart"></span>
-                      <span className="count">2</span>
-                    </a>
+                      <span className="count">{cart?(cart>0?cart:0):(!TotalCart?0:TotalCart)}</span>
+                    </Link>
                   </li>
                   <li className="d-inline-block d-md-none ml-md-0"><a href="#" className="site-menu-toggle js-menu-toggle"><span className="icon-menu"></span></a></li>
                 </ul>
@@ -60,11 +73,12 @@ const Header = props => {
               <Link to="/">TRANG CHỦ</Link>
             </li>
             <li className="has-children">
-              <a href="about.html">SẢN PHẨM</a>
+              <Link to="/Store/shop">SẢN PHẨM</Link>
               <ul className="dropdown">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
+                {categories&&categories.map((category,index)=>
+                  category.id==0?'':
+                  <li key={index}><Link to={`/Store/Category/${category.id}`} onClick={()=>dispatch(getProductCategory(category.id))}>{category.name_category}</Link></li>
+                )}
               </ul>
             </li>
             <li><a href="contact.html">Giới thiệu</a></li>
@@ -72,7 +86,7 @@ const Header = props => {
           </ul>
         </div>
       </nav>
-    </header>
+    </header> 
   )
 }
 

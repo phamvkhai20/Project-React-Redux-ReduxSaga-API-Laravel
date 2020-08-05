@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import Data from '../../Api/product.json'
 import { Link } from 'react-router-dom'
-const ListCategory = props => {
+import { useSelector } from 'react-redux'
+const ListCategory = ({GetCategory,deleteCategory}) => {
+    useEffect(() => {
+        GetCategory();
+    }, [])
+    const onHandleClickDelete=(id)=>{
+        setCategories(categories.filter((cate)=>cate.id!==id))
+        deleteCategory(id)
+    }
+    const cate = useSelector(state => state.category.categories)
+    const [categories, setCategories] = useState()
+    cate&&!categories ?setCategories(cate):''
     return (
         <div className="content-page">
             <div className="content">
@@ -33,24 +43,27 @@ const ListCategory = props => {
                                                 <table id="mainTable" className="table table-striped m-b-0">
                                                     <thead>
                                                         <tr>
-                                                            <th>ID</th><th>Name</th><th>Action</th>
+                                                            <th>#</th><th>Name</th><th>Total product</th><th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {Data.map((product, index)=>
-                                                            <tr key={index}>
-                                                                <td>{product.id}</td><td>{product.name}</td>
-                                                                <td>
-                                                                    <Link className="btn btn-primary" to={`/Admin/Product/${product.id}`} >Xem</Link>
-                                                                </td>
-                                                            </tr>
-                                                        )}
+                                                      {categories&&categories.map((cate,index)=>
+                                                      <tr key={index}>
+                                                            <td>{index+1}</td>
+                                                            <td>{cate.name_category}</td>
+                                                            <td>{cate.product.length}</td>
+                                                            {cate.id!==0?
+                                                            <td>
+                                                                <button onClick={()=>onHandleClickDelete(cate.id)} className="btn btn-danger mr-3">Xóa</button>
+                                                                <button className="btn btn-primary">Sửa</button>
+                                                            </td>:<td></td>
+                                                            }
+                                                      </tr>
+                                                      
+                                                      
+                                                      
+                                                      )}
                                                     </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th><strong>TOTAL</strong></th><th></th><th></th>
-                                                        </tr>
-                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </div>
@@ -66,10 +79,6 @@ const ListCategory = props => {
         </div>
 
     )
-}
-
-ListCategory.propTypes = {
-
 }
 
 export default ListCategory

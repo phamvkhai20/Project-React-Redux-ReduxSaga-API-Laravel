@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all(); 
+        return Product::with('category')->get(); 
     }
     /**
      * Store a newly created resource in storage.
@@ -36,6 +36,17 @@ class ProductController extends Controller
     public function show($id)
     {
         return Product::find($id);
+    }
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cart($arr)
+    {
+        $gg= explode(',', $arr);
+        return Product::whereIn('id',$gg)->get();
     }
 
     /**
@@ -61,4 +72,10 @@ class ProductController extends Controller
     {
         $product->delete();
     }
+
+    public function showTheoCategory($id)
+    {
+        return Product::where('category_id',$id)->get();
+    }
+    
 }
