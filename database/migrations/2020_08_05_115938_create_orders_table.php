@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatCheckoutTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreatCheckoutTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkouts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
-            $table->text('don_hang');
-            $table->integer('tong_tien');
+            $table->text('chi_tiet_don');
+            $table->string('tong_tien');
+            $table->string('dia_chi');
+            $table->string('ho_va_ten');
+            $table->string('so_dien_thoai');
+            $table->string('chu_thich');
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -29,6 +34,6 @@ class CreatCheckoutTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('orders');
     }
 }

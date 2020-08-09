@@ -25,7 +25,7 @@ const ListProduct = ({ GetProduct, deleteProduct }) => {
     const productUpdate = useSelector(state => state.product.updateProduct)
     const proudctAddNew = useSelector(state => state.product.proudctAddNew)
     const [IdSP, setIdSP] = useState() 
-    if(ProductAll){
+    if(ProductAll.length>0){
        const viTriCuoi= ProductAll.length;
        const ids = ProductAll[viTriCuoi-1]
        if(!IdSP){
@@ -39,7 +39,6 @@ const ListProduct = ({ GetProduct, deleteProduct }) => {
        const proudctAdd=Object.assign(proudctAddNew,idSPmoi)
        ProductAll.push(proudctAdd)
        setDemAdd(DemAdd+1)
-
     }
     const onHandleClickDeleteProduct=(product)=>{
         Swal.fire({

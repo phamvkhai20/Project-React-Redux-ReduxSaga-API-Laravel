@@ -28,7 +28,10 @@ function Register({LayThongDangKi}){
         console.log(DataDangKi);
     }
     const onHandleSubmit = (value)=>{
-        LayThongDangKi(value);
+        const avatar="https://png.pngtree.com/png-clipart/20190903/original/pngtree-couple-boy-cute-avatar-png-image_4445471.jpg"
+        const gopData=Object.assign(value,{avatar:avatar});
+        LayThongDangKi(gopData);
+        console.log(gopData)
 
     }
     return (

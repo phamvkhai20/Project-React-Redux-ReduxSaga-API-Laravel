@@ -50,4 +50,38 @@ function(){
     Route::post('delete/{category}', 'Api\CategoryController@destroy');
 });
 
+Route::group([
+    'prefix' => 'contact'
+],
+function(){
+    Route::get('/', 'Api\ContactController@index');
+    Route::get('/{contact}', 'Api\ContactController@show');
+    Route::post('add', 'Api\ContactController@store');
+    Route::post('update/{contact}', 'Api\ContactController@update');
+    Route::post('delete/{contact}', 'Api\ContactController@destroy');
+});
+
+Route::group([
+    'prefix' => 'post'
+],
+function(){
+    Route::get('/', 'Api\PostController@index');
+    Route::get('/{post}', 'Api\PostController@show');
+    Route::post('add', 'Api\PostController@store');
+    Route::post('update/{post}', 'Api\PostController@update');
+    Route::post('delete/{post}', 'Api\PostController@destroy');
+});
+
+
+Route::group([
+    'prefix' => 'order'
+],
+function(){
+    Route::get('/', 'Api\OrderController@index');
+    Route::get('/{order}', 'Api\OrderController@show');
+    Route::post('add', 'Api\OrderController@store');
+    Route::post('update/{order}', 'Api\OrderController@update');
+    Route::post('delete/{order}', 'Api\OrderController@destroy');
+});
+
 

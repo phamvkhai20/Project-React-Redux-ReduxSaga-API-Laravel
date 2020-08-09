@@ -12,13 +12,13 @@ import RouteAuth from '../modules/Auth/Components';
 import { useSelector, useDispatch } from "react-redux";
 import WebStore from '../modules/WebStore/Components';
 import { setTokenAction } from '../modules/Auth/Actions/setToken';
-function Routes({ layThongTinUser ,GetProduct,GetCategory,LayTokenDangXuat}) {
+function Routes({ layThongTinUser ,GetProduct,GetCategory,LayTokenDangXuat,GetPost}) {
     useEffect(() => {
-        GetProduct(),
+        GetProduct()
+        GetPost()
         GetCategory()
     }, [])
     const categories = useSelector(state => state.category.categories)
-
     const tokens = useSelector(state => state.token.tokens);
     const [infoUser, setinfoUser] = useState()
     const user = useSelector(state => state.auth.infoUser);

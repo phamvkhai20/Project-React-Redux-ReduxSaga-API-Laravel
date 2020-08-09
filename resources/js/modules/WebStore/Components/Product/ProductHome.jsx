@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { setItemCart } from '../../Actions/Cart'
 
 const ProductHome = ({ GetProduct }) => {
+  const trangthai = useSelector(state => state.cart.isOrder)
+  const dispatch = useDispatch()
+  if(trangthai){
+    dispatch(setItemCart(0))
+    localStorage.removeItem('cart')
+  }
+
   const ProductAll = useSelector(state => state.product.products);
   return (
     <div className="container mt-5">

@@ -14,7 +14,9 @@ import HeaderContainer from '../Containers/HeaderContainer';
 import ShopContainer from '../Containers/ShopContainer';
 import CarContainer from '../Containers/CarContainer';
 import ProductCategoryContainer from '../Containers/ProductCategoryContainer';
-import Checkout from './Cart/Checkout';
+import CheckoutContainer from '../Containers/CheckoutContainer';
+import OrderSuccsess from './Cart/OrderSuccsess';
+import ContactContainer from '../Containers/ContactContainer';
 const WebStore = ({GetCategory,LayTokenDangXuat}) => {
     const user = useSelector(state => state.auth.infoUser);
     return (
@@ -23,14 +25,15 @@ const WebStore = ({GetCategory,LayTokenDangXuat}) => {
             <Switch>
             <Route exact path='/Store/' component={HomePage}/>
             <Route exact path='/' component={HomePage}/>
-            <Route exact path='/Store/Checkout' component={Checkout}/>
+            <Route exact path='/Store/Checkout' component={CheckoutContainer}/>
             <Route exact path='/Store/Cart/' component={CarContainer}/>
             <Route exact path='/Store/Product/:id'  component={SingleProductContainer}/>
             <Route exact path='/Store/Category/:id'  component={ProductCategoryContainer}/>
             <Route path='/Store/Shop/'>
                  <ShopContainer />
             </Route>
-            {/* <Route exact path='/Store/category/:id' component={CarContainer}/> */}
+            <Route  exact path='/Store/OrderSuccess' component={OrderSuccsess} />
+            <Route  exact path='/Store/Contact' component={ContactContainer} />
             </Switch>
         <Footer />
     </div>

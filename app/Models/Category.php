@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $table = "categories";
     protected $fillable = [
-        'name_category'
+        'name_category','mota','image'
     ];
     protected $primaryKey="id";
     public function product(){

@@ -14,21 +14,28 @@ const Cart = ({ getProductCart }) => {
   const dispatch = useDispatch();
   //////////////////////////////////
   const [Dems, setDems] = useState(0)
+  setTimeout(() => {
+    const ojb = localStorage.getItem('cart');
+  }, 2000);
   const ojb = localStorage.getItem('cart');
-  const mangNew = [];
-  const mangHT=[]
-  const soluongs = []
-  const soluongnew=[];
   const [MangCart, setMangCart] = useState()
-  const taoMang = "[" + ojb + "]"
-  const getItemCartLocalStorage = JSON.parse(taoMang);
-  const mang = getItemCartLocalStorage
-  mang.map(cart =>
-    {
-    mangNew.push(Number(cart.idSP))
-    mangHT.push(cart)
+  const mangNew = [];
+    const mangHT=[]
+    const soluongs = []
+    const soluongnew=[];
+    const taoMang = "[" + ojb + "]"
+    const getItemCartLocalStorage = JSON.parse(taoMang);
+    const mang = getItemCartLocalStorage
+  if(ojb){
+    if(mang){
+      mang.map(cart =>
+        {
+        mangNew.push(Number(cart.idSP))
+        mangHT.push(cart)
+        }
+      )
     }
-  )
+  }
   ////////////////////////////////
   useEffect(() => {
     getProductCart(mangNew);
@@ -147,7 +154,9 @@ const onHandleClickUpdateCart=(product)=>{
       <div className="site-section">
         <div className="container">
           <div className="row mb-5">
+          {(mangHT&&ProductCarts)?
               <div className="site-blocks-table">
+              
               <form name="formss">
                 <table className="table table-bordered" style={{minWidth:'1130px'}}>
                   <thead>
@@ -161,8 +170,7 @@ const onHandleClickUpdateCart=(product)=>{
                     </tr>
                   </thead>
                   <tbody>
-            
-                    {(mangHT&&ProductCarts)&&mangHT.map((cart,index)=>
+                    {mangHT.map((cart,index)=>
                         ProductCarts.map((products)=>
                           products.id===Number(cart.idSP)&&
                           <tr key={index}>
@@ -182,11 +190,11 @@ const onHandleClickUpdateCart=(product)=>{
                                   value={cart.soluong} />
                                 
                               </div>
-                              <div class="dropdown">
+                              <div className="dropdown">
                               <span className="btn btn-secondary"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cập nhật số lượng</span>
-                              <div className="input-group mb-3" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <div className="input-group mb-3" className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <input  type="number" name={products.id} 
-                                  onChange={onHandleChangeSoluong} max={products.soluong} class="dropdown-item" />
+                                  onChange={onHandleChangeSoluong} max={products.soluong} className="dropdown-item" />
                               </div>
                               </div>
                             </td>
@@ -197,11 +205,11 @@ const onHandleClickUpdateCart=(product)=>{
                       )
                       }
                   </tbody>
+          
                 </table>
                 </form>
-              </div>
+              </div>:<p className="mx-auto" style={{width:'400px',margin:'auto'}}>Bạn chưa có sản phẩm nào trong giỏ hàng !!!   <Link to="/Store/shop" >Đến cửa hàng.</Link></p>}
           </div>
-
           <div className="row">
             <div className="col-md-6">
               <div className="row mb-5">

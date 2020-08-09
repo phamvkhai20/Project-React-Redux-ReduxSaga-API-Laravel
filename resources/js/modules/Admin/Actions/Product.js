@@ -20,3 +20,28 @@ export  const setImageAlbum =(image)=>{
         payload:image,
     }
 }
+export  const setIsAddCate =()=>{
+    return {
+        type: 'SET_ADD_CATE'
+    }
+}
+
+export  const setIsEditCate =()=>{
+    return {
+        type: 'SET_EDIT_CATE'
+    }
+}
+
+export  const resetIsEdit =()=>{
+    return {
+        type: 'RS_IS_EDIT'
+    }
+}
+
+export  const resetIsAdd =()=>{
+    return {
+        type: 'RS_IS_ADD'
+    }
+}
+
+

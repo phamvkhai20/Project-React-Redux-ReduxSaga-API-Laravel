@@ -25,28 +25,12 @@ const Header = ({ LayTokenDangXuat }) => {
                     <li className="dropdown notification-list">
                         <a className="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
-                            <img src="https://www.ruaanhgiare.com/wp-content/uploads/2018/03/anh-the-3x4.jpg" alt="user" className="rounded-circle" /> <span className="ml-1">{user.name} <i className="mdi mdi-chevron-down"></i> </span>
+                            <img src="https://scontent.fhan5-3.fna.fbcdn.net/v/t1.0-9/92685787_1118946488457302_5128456466302238720_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=_DGpQNGMUDgAX8g4-lN&_nc_ht=scontent.fhan5-3.fna&oh=569b918242ab53aecbe4694cb964bdaa&oe=5F54D318" alt="user" className="rounded-circle" /> <span className="ml-1">{user.name} <i className="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right profile-dropdown ">
                             <div className="dropdown-item noti-title">
                                 <h6 className="text-overflow m-0">Welcome !</h6>
                             </div>
-
-                            <a onClick={e => { void (0), e.preventDefault() }} className="dropdown-item notify-item">
-                                <i className="fi-head"></i> <span>My Account</span>
-                            </a>
-
-                            <a onClick={e => { void (0), e.preventDefault() }} className="dropdown-item notify-item">
-                                <i className="fi-cog"></i> <span>Settings</span>
-                            </a>
-
-                            <a onClick={e => { void (0), e.preventDefault() }} className="dropdown-item notify-item">
-                                <i className="fi-help"></i> <span>Support</span>
-                            </a>
-
-                            <a onClick={e => { void (0), e.preventDefault() }} className="dropdown-item notify-item">
-                                <i className="fi-lock"></i> <span>Lock Screen</span>
-                            </a>
                             <button onClick={()=>LayTokenDangXuat(token)} className="dropdown-item notify-item">
                                 <i className="fi-power"></i> <span>Logout</span>
                             </button>

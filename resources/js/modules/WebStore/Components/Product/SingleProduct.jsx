@@ -37,8 +37,7 @@ const SingleProduct = ({ GetProduct, getSingleProduct }) => {
         } else {
           cartNew.push(cart)
         }
-      }
-      )
+      })
       const tongSL = soluongCungSP.reduce((partial_sum, a) => partial_sum + a, 0)
       const cartSPHienTai = { idSP: id, soluong: tongSL }
       cartNew.push(cartSPHienTai);

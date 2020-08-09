@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { setItemCart } from '../../Actions/Cart';
-const Header = ({LayTokenDangXuat,getProductCategory}) => {
-  
+const Header = ({LayTokenDangXuat,getProductCategory,GetCategory}) => {
+ 
   const dispatch = useDispatch()
   const user = useSelector(state => state.auth.infoUser);
   const token = localStorage.getItem('access_token');
@@ -45,7 +45,7 @@ const Header = ({LayTokenDangXuat,getProductCategory}) => {
                       <a className="dropdown-item" href="#">Thông tin cá nhân</a>
                       <a className="dropdown-item" href="#">Đơn hàng</a>
                       {user.role==2 ?
-                        <Link className="dropdown-item" to="/Admin/ListProduct">Quản trị website</Link>
+                        <Link className="dropdown-item" to="/Admin/">Quản trị website</Link>
                       : ''
                       }
                       <div className="dropdown-divider"></div>
@@ -81,8 +81,10 @@ const Header = ({LayTokenDangXuat,getProductCategory}) => {
                 )}
               </ul>
             </li>
-            <li><a href="contact.html">Giới thiệu</a></li>
-            <li><a href="contact.html">Liên hệ</a></li>
+            <li>
+              <Link to="/Store/shop">Bài viết</Link>
+            </li>
+            <li> <Link to="/Store/Contact">Liên hệ</Link></li>
           </ul>
         </div>
       </nav>

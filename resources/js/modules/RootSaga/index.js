@@ -7,8 +7,10 @@ import Register from "../Auth/Api/RegisterSaga";
 import Logout from "../Auth/Api/LogoutSaga";
 import getUser from "../Auth/Api/GetUserSaga";
 import { getProduct, DeleteProduct, EditProduct, AddProduct, SingleProduct, getProductCart, getProductCategory } from "../Admin/Api/ProductSaga";
-import { getCategories, AddCategory, DeleteCategory, EditCategory } from "../Admin/Api/CategorySaga";
-
+import { getCategories, AddCategory, DeleteCategory, EditCategory, tim1DanhMuc } from "../Admin/Api/CategorySaga";
+import {DatHang, getOrders} from "../WebStore/Api/CatSaga";
+import { getPosts, Addpost, Editpost, Deletepost, tim1BaiViet } from "../Admin/Api/PostSaga";
+import { guiContact, getContacts } from "../WebStore/Api/ContactSaga";
 function* rootsaga(){
     yield all([
         Login(),
@@ -26,6 +28,16 @@ function* rootsaga(){
         DeleteCategory(),
         EditCategory(),
         getProductCategory(),
+        DatHang(),
+        tim1DanhMuc(),
+        getPosts(),
+        Addpost(),
+        Editpost(),
+        Deletepost(),
+        tim1BaiViet(),
+        guiContact(),
+        getContacts(),
+        getOrders()
     ])
 }
 const sagaMiddleware = createSagaMiddleware();

@@ -36,20 +36,20 @@
     </script>
     <script src="{{ asset('dist/app.js') }}"></script>
     <!-- jQuery  -->
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('plugins/waypoints/lib/jquery.waypoints.min.js')}}"></script>
-    <script src="{{ asset('plugins/counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('plugins/counterup/jquery.counterup.min.js') }}"></script> -->
     <!-- Chart JS -->
-    <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('plugins/chart.js/chart.bundle.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('plugins/chart.js/chart.bundle.js') }}"></script> -->
     <!-- init dashboard -->
-    <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
-    <script src="{{ asset('dist/script.js')}}"></script>
+    <script src="{{ asset('dist/script.js')}}"></script> -->
 
 </body>
 

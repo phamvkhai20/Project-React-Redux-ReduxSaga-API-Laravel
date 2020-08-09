@@ -11,50 +11,15 @@ import { setImageAlbum } from '../../Actions/Product';
 
 
 const AddProduct = ({ ThemSanPham, GetCategory }) => {
+    const user = useSelector(state => state.auth.infoUser);
     const { register, handleSubmit, watch, errors } = useForm();
     const [url, setUrl] = useState("");
     const dispatch = useDispatch();
     const album = useSelector(state => state.product.album);
     const [AlbumProduct, setAlbumProduct] = useState(album)
     const [pictures, setPictures] = useState();
-    
     const onDrop = picture => {
-        setPictures(picture);
-    };
-    const [url2, setUrl2] = useState("");
-    const [imageAvatar, setimageAvatar] = useState()
-    const handleChange = e => {
-        if (e.target.files[0]) {
-            setimageAvatar(e.target.files[0])
-        }
-    }
-    const handleUpdateAvatarProduct=()=>{
-        const uploadTask = storage.ref(`images/${imageAvatar.name}`).put(imageAvatar);
-            console.log(uploadTask)
-            uploadTask.on(
-                "state_changed",
-                snapshot => {},
-                error => {console.log(error); },
-                () => { storage
-                        .ref("images")
-                        .child(imageAvatar.name)
-                        .getDownloadURL()
-                        .then(url => {
-                         
-                            setUrl2(url);
-                        });
-                }
-            );
-    }
-    // const handleChangeImage = () => {
-    //     if (e.target.files[0]) {
-    //         setimage(e.target.files[0])
-    //     }
-    // }
-    const albumImage = []
-    const handleUpdate=()=>{
-        console.log(555555,pictures)
-        pictures.map((image)=>{
+        picture.map((image)=>{
             const uploadTask = storage.ref(`images/${image.name}`).put(image);
             uploadTask.on(
                 "state_changed",
@@ -72,9 +37,46 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                 }
             );
         })
+    };
+    const [url2, setUrl2] = useState("");
+    // const [imageAvatar, setimageAvatar] = useState()
+    const handleChange = e => {
+        if (e.target.files[0]) {
+            const imageAvatar=e.target.files[0];
+            const uploadTask = storage.ref(`images/${imageAvatar.name}`).put(imageAvatar);
+            console.log(uploadTask)
+            uploadTask.on(
+                "state_changed",
+                snapshot => {},
+                error => {console.log(error); },
+                () => { storage
+                        .ref("images")
+                        .child(imageAvatar.name)
+                        .getDownloadURL()
+                        .then(url => {
+                         
+                            setUrl2(url);
+                        });
+                }
+            );
+        }
+
+    }
+    // const handleUpdateAvatarProduct=()=>{
+        
+    // }
+    // const handleChangeImage = () => {
+    //     if (e.target.files[0]) {
+    //         setimage(e.target.files[0])
+    //     }
+    // }
+    const albumImage = []
+    const handleUpdate=()=>{
+            
     }
     const handleDeleteImage=(id)=>{
         albumImage.filter((g,index)=>index!==id)
+
         dispatch(setImageAlbum(album.filter((g,index)=>index!==id)))
     }
     const onSubmits = data => {
@@ -123,6 +125,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
 
                                                         <p className="mb-1 mt-4 font-weight-bold">Ten san pham</p>
 
+                                                        <input type="hidden" value={user.id} className="form-control" name="user_id"  ref={register} />
                                                         <input type="text" className="form-control" name="name_product" id="defaultconfig" ref={register({ required: true })} />
                                                         <small style={{ color: "red" }}>{errors.name_product && <span>Không bỏ trống tên sản phẩm</span>}</small>
                                                         <div className="row" >
@@ -144,7 +147,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                             <p className="mb-1 mt-4 font-weight-bold">Danh Muc</p>
                                                             <select name="category_id" ref={register} className="form-control" >
                                                                 {categories && categories.map((cate, index) =>
-                                                                    <option value={cate.id}>{cate.name_category}</option>
+                                                                    <option key={index} value={cate.id}>{cate.name_category}</option>
                                                                 )
                                                                 }
                                                             </select>
@@ -168,7 +171,7 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                             <p className="mb-1 mt-4 font-weight-bold">Anh</p>
                                                             <div className="input-group mb-3">
                                                             <div className="input-group-prepend">
-                                                                <span className="input-group-text" style={{height:'38px'}} id="inputGroupFileAddon01" onClick={handleUpdateAvatarProduct} >Upload</span>
+                                                                <span className="input-group-text" style={{height:'38px'}} id="inputGroupFileAddon01" >Upload</span>
                                                             </div>
                                                             <div className="custom-file">
                                                                 <input type="file" onChange={handleChange} className="custom-file-input"
@@ -183,7 +186,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                         </div>
                                                         <p className="mb-1 mt-4 font-weight-bold">Album</p>
                                                   
-                                                   {pictures&&<button type="button" onClick={handleUpdate} className="btn btn-primary">Update</button>}
                                                     <ImageUploader
                                                         withIcon={true}
                                                         onChange={onDrop}
