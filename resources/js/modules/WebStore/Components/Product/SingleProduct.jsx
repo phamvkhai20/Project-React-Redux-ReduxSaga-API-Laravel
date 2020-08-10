@@ -103,7 +103,9 @@ const SingleProduct = ({ GetProduct, getSingleProduct }) => {
 
                 <p>{productSingle.mota}</p>
                 <h6 className="font-weight-light " style={{ color: 'blue' }}>Số lượng: <span>{productSingle.soluong}</span></h6>
-                <p><strong className="text-primary h4">{productSingle.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} Vnđ</strong></p>
+                {productSingle.old_price>0&&<strike>{productSingle.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</strike>}
+            {productSingle.old_price>0?<p><strong className="text-primary h4">{productSingle.old_price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} Vnđ</strong></p>:
+                <p><strong className="text-primary h4">{productSingle.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} Vnđ</strong></p>}
                 <div className="mb-5">
                   <div className="input-group mb-3" style={{ maxWidth: "220px" }}>
                     <div className="input-group-prepend">

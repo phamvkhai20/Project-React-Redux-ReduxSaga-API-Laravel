@@ -62,7 +62,6 @@ const Cart = ({ getProductCart }) => {
     localStorage.setItem('cart',(catchuoi));
     setProductCart(ProductCarts.filter((p)=>p.id!==b))
     setmangTam(xoaCart)
-     
   }
   /////////////////////////////////////
   const onHandleClickDeleteProduct=(product)=>{
@@ -182,7 +181,9 @@ const onHandleClickUpdateCart=(product)=>{
                               <h4 className="h5 text-black" style={{width:'430px'}}>{products.name_product}</h4>
                             </Link>
                             </td>
-                            <td>{products.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>
+                            {products.old_price>0?
+                            <td>{products.old_price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>:
+                            <td>{products.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>}
                             <td>
                             
                               <div className="input-group mb-3" style={{ maxWidth: "120px" }}>
@@ -198,7 +199,9 @@ const onHandleClickUpdateCart=(product)=>{
                               </div>
                               </div>
                             </td>
-                            <td>{(products.price*cart.soluong).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>
+                            {products.old_price>0?
+                              <td>{(products.old_price*cart.soluong).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>:
+                            <td>{(products.price*cart.soluong).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</td>}
                             <td><p type="button" onClick={()=>onHandleClickDeleteProduct(products.id)} className="btn btn-primary btn-sm">X</p></td>
                           </tr>
                          )

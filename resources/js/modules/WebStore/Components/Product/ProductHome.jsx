@@ -17,7 +17,7 @@ const ProductHome = ({ GetProduct }) => {
     <div className="container mt-5">
     <div className="row justify-content-center">
           <div className="col-md-7 site-section-heading text-center pt-4">
-            <h2>Sản phẩm mới nhất</h2>
+            <h2>Sản phẩm </h2>
           </div>
         </div>
       <div className="row row-cols-4 ">
@@ -31,8 +31,10 @@ const ProductHome = ({ GetProduct }) => {
               <div className="block-4-text"  style={{height:"200px"}}>
               <Link  to={`/Store/Product/${product.id}`} ><h3><a href="shop-single.html">{product.name_product.substr(0,40)}. </a></h3></Link>
                 <p className="mb-0">{product.mota.substr(0,60)}...</p>
-                <p className="text-primary font-weight-bold">{product.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</p>
-                <Link style={{buttom:"10px"}} className="btn btn-primary mb-4" to={`/Store/Product/${product.id}`} style={{ width: '60%' , bottom: '-10px',top:'415px',right:'50px',  position: 'absolute'}}>Mua ngay</Link>
+                {product.old_price>0&&<strike>{product.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</strike>}
+                {product.old_price>0?<p className="text-primary font-weight-bold">{product.old_price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</p>:
+                  <p className="text-primary font-weight-bold">{product.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VNĐ</p>}
+                <Link style={{buttom:"10px"}} className="btn btn-primary mb-4" to={`/Store/Product/${product.id}`} style={{ width: '60%' , bottom: '-10px',top:'415px',right:'50px',  position: 'absolute'}}>Xem ngay</Link>
               </div>
             </div>
           </div>) : ''

@@ -90,12 +90,25 @@ yield takeLatest("CHI_TIET_SAN_PHAM", ChitietP);
 function* cart(arr) {
   try {
     const product1= yield call(axios.get,`/api/product/cart/${arr.arr}`);
+    console.log(888,product1)
     yield put({type: "LAY_SP_TRONG_CART_THANH_CONG",cart:product1.data})
   } catch (error) {
+    console.log(888)
+    
   }
 }
 export function* getProductCart() {
 yield takeLatest("GET_SP_TRONG_CAR", cart);
+} 
+
+function* listPro(arr) {
+  try {
+    const product1= yield call(axios.get,`/api/product/deleteList/${arr.arr}`);
+  } catch (error) {
+  }
+}
+export function* xoaListSP() {
+yield takeLatest("XOA_LIST_SAN_PHAM", listPro);
 } 
 
 

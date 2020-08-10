@@ -40,10 +40,10 @@ const ListPost = ({ GetPost, deletePost }) => {
     }
 
 
-    const onHandleClickDeleteProduct=(product)=>{
+    const onHandleClickDeleteProduct=(id)=>{
         Swal.fire({
             title: 'Bạn có chắc chắn xóa ?',
-            text: "Sẽ xóa sản phẩm vĩnh viễn",
+            text: "Sẽ xóa bài viết vĩnh viễn",
             icon: 'Cảnh báo',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -51,7 +51,7 @@ const ListPost = ({ GetPost, deletePost }) => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.value) {
-            onHandleDelete(product)
+                onHandleClickDelete(id)
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
@@ -79,8 +79,19 @@ const ListPost = ({ GetPost, deletePost }) => {
                     <div className="row">
                         <div className="col-xl">
                             <div className="card-box">
-                                <h4 className="header-title">Danh sách sản phẩm</h4>
-                             
+                                <h4 className="header-title">Danh sách bài viết</h4>
+                                {
+                                    isEditpost ?
+                                        <div className="alert alert-success" role="alert">
+                                            Sửa bài viêt thành công !
+                                    </div> : ''
+                                }
+                                {
+                                    isAddPost ?
+                                        <div className="alert alert-success" role="alert">
+                                            Thêm bài viết thành công !
+                                    </div> : ''
+                                }
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="card-box">
@@ -88,7 +99,7 @@ const ListPost = ({ GetPost, deletePost }) => {
                                                 <table id="mainTable" className="table table-striped m-b-0">
                                                     <thead>
                                                         <tr>
-                                                            <th onClick={onHandleClickDeleteProduct}>ID</th><th>Name</th><th>Image</th><th>Price</th><th>Price sale</th><th>Action</th>
+                                                            <th onClick={onHandleClickDeleteProduct}>ID</th><th>Ảnh</th><th>Tiêu đề</th><th>Mô tả</th><th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -99,9 +110,9 @@ const ListPost = ({ GetPost, deletePost }) => {
                                                             <td>{post.tieude}</td>
                                                             <td>{post.mo_ta}</td>
                                                             <td>
-                                                                <button onClick={()=>onHandleClickDelete(post.id)} className="btn btn-danger mr-3">Xóa</button>
+                                                                <button onClick={()=> onHandleClickDeleteProduct(post.id)} className="btn btn-danger mr-3">Xóa</button>
                                                                 <Link to={`/Admin/Post/${post.id}`} className="btn btn-primary">Sửa</Link>
-                                                            </td>:<td></td>
+                                                            </td>
                                                       </tr>
                                                       )}
                                                     </tbody>

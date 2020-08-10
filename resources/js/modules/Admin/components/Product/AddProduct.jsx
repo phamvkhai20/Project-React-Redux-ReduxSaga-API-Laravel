@@ -39,7 +39,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
         })
     };
     const [url2, setUrl2] = useState("");
-    // const [imageAvatar, setimageAvatar] = useState()
     const handleChange = e => {
         if (e.target.files[0]) {
             const imageAvatar=e.target.files[0];
@@ -54,7 +53,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                         .child(imageAvatar.name)
                         .getDownloadURL()
                         .then(url => {
-                         
                             setUrl2(url);
                         });
                 }
@@ -62,14 +60,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
         }
 
     }
-    // const handleUpdateAvatarProduct=()=>{
-        
-    // }
-    // const handleChangeImage = () => {
-    //     if (e.target.files[0]) {
-    //         setimage(e.target.files[0])
-    //     }
-    // }
     const albumImage = []
     const handleUpdate=()=>{
             
@@ -79,12 +69,24 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
 
         dispatch(setImageAlbum(album.filter((g,index)=>index!==id)))
     }
+    const handleChangPrice=()=>{
+        setErrPrice(false)
+    }
+    const [ErrPrice, setErrPrice] = useState(false)
     const onSubmits = data => {
-        const addAlbum = Object.assign({ album: JSON.stringify(album) }, data);
-        const addImage= Object.assign({ image: url2 }, addAlbum);
-        ThemSanPham(addImage);
-        // console.log(addImage)
-    };
+     if(data.old_price>0) {
+         if(data.old_price>data.price||Number(data.price)<0||Number(data.old_price)<0){
+            setErrPrice(true)
+         }
+         else{
+            const gopOJB = Object.assign({ album: JSON.stringify(album) }, data,{ image: url2 });
+            ThemSanPham(gopOJB);
+         }
+        }else {
+            const gopOJB = Object.assign({ album: JSON.stringify(album) }, data,{ image: url2 });
+            ThemSanPham(gopOJB);
+        }
+    }
     const [value, setvalue] = useState('');
 
     
@@ -92,6 +94,8 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
         const datas = editor.getData();
         setvalue(datas)
     }
+
+
     const categories = useSelector(state => state.category.categories)
     !categories ? GetCategory() : ''
     return (
@@ -126,21 +130,23 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                         <p className="mb-1 mt-4 font-weight-bold">Ten san pham</p>
 
                                                         <input type="hidden" value={user.id} className="form-control" name="user_id"  ref={register} />
-                                                        <input type="text" className="form-control" name="name_product" id="defaultconfig" ref={register({ required: true })} />
+                                                        <input type="text" className="form-control" name="name_product" id="defaultconfig" ref={register({ validate: (value) => { return !!value.trim() } })} />
                                                         <small style={{ color: "red" }}>{errors.name_product && <span>Không bỏ trống tên sản phẩm</span>}</small>
                                                         <div className="row" >
 
                                                             <div className="col-md-6">
                                                                 <p className="mb-1 col-md-6 mt-4 font-weight-bold">Giá</p>
-                                                                <input type="number" className="form-control float-left" name="price" ref={register({ required: true })} />
+                                                                <input type="number" className="form-control float-left" name="price"  onChange={handleChangPrice}  ref={register({ validate: (value) => { return !!value.trim() } })} />
                                                                 <small style={{ color: "red" }}>{errors.price && <span>Không bỏ trống giá</span>}</small>
+                                                                <small style={{ color: "red" }}>{ErrPrice && <span>Giá sale không được cao hơn giá gốc và không được âm</span>}</small>
                                                             </div>
 
                                                             <div className="col-md-6">
                                                                 <p className="mb-1 mt-4 font-weight-bold">Giá sale</p>
-                                                                <input type="number" className="form-control float-left" name="old_price" ref={register({ required: true })} />
+                                                                <input type="number" className="form-control float-left" name="old_price" onChange={handleChangPrice} ref={register({ validate: (value) => { return !!value.trim() } })} />
                                                                 <small style={{ color: "red" }}>{errors.old_price && <span>Không bỏ trống giá</span>}</small>
-
+                                                                <small style={{ color: "red" }}>{ErrPrice && <span>Giá sale không được cao hơn giá gốc và không được âm</span>}</small>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div>
@@ -155,12 +161,12 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
                                                         </div>
                                                         <div>
                                                             <p className="mb-1 mt-4 font-weight-bold">Mô tả</p>
-                                                            <input type="text" className="form-control" name="mota" id="placement" ref={register({ required: true })} />
+                                                            <input type="text" className="form-control" name="mota" id="placement"  ref={register({ validate: (value) => { return !!value.trim() } })} />
                                                             <small style={{ color: "red" }}>{errors.mota && <span>Không bỏ trống mô tả</span>}</small>
                                                         </div>
                                                         <div>
                                                             <p className="mb-1 mt-4 font-weight-bold">Số lượng</p>
-                                                            <input type="text" className="form-control" name="soluong" id="placement" ref={register({ required: true })} />
+                                                            <input type="number" className="form-control" name="soluong" id="placement"  ref={register({ validate: (value) => { return !!value.trim() } })} />
                                                             <small style={{ color: "red" }}>{errors.soluong && <span>Không bỏ trống số lượng</span>}</small>
                                                         </div>
 

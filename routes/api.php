@@ -36,6 +36,7 @@ function(){
     Route::get('/getProductCategory/{id}', 'Api\ProductController@showTheoCategory');
     Route::post('update/{product}', 'Api\ProductController@update');
     Route::get('cart/{arr}', 'Api\ProductController@cart');
+    Route::get('deleteList/{arr}', 'Api\ProductController@deleteList');
     Route::post('delete/{product}', 'Api\ProductController@destroy');
 });
 

@@ -6,10 +6,11 @@ import { all } from "redux-saga/effects";
 import Register from "../Auth/Api/RegisterSaga";
 import Logout from "../Auth/Api/LogoutSaga";
 import getUser from "../Auth/Api/GetUserSaga";
-import { getProduct, DeleteProduct, EditProduct, AddProduct, SingleProduct, getProductCart, getProductCategory } from "../Admin/Api/ProductSaga";
+import { getProduct, DeleteProduct, EditProduct, AddProduct, SingleProduct, getProductCart, getProductCategory, xoaListSP } from "../Admin/Api/ProductSaga";
 import { getCategories, AddCategory, DeleteCategory, EditCategory, tim1DanhMuc } from "../Admin/Api/CategorySaga";
 import {DatHang, getOrders} from "../WebStore/Api/CatSaga";
 import { getPosts, Addpost, Editpost, Deletepost, tim1BaiViet } from "../Admin/Api/PostSaga";
+import {getListOrders, tim1DonHang} from "../Admin/Api/OrderSaga";
 import { guiContact, getContacts } from "../WebStore/Api/ContactSaga";
 function* rootsaga(){
     yield all([
@@ -37,7 +38,10 @@ function* rootsaga(){
         tim1BaiViet(),
         guiContact(),
         getContacts(),
-        getOrders()
+        getOrders(),
+        getListOrders(),
+        tim1DonHang(),
+        xoaListSP()
     ])
 }
 const sagaMiddleware = createSagaMiddleware();

@@ -20,8 +20,9 @@ import EditCategoryContainer from '../Containers/EditCategoryContainer';
 import AddPostContainer from '../Containers/AddPostContainer';
 import ListPostContainer from '../Containers/ListPostContainer';
 import EditPostContainer from '../Containers/EditPostContainer';
-import Dashboard from './Dashboard';
 import DashboardContainer from '../Containers/DashboardContainer';
+import OrderContainer from '../Containers/OrderContainer';
+import SingleOrderContainer from '../Containers/SingleOrderContainer';
 function Example() {
   const isUpdate = useSelector(state => state.product.isUpdateProduct)
   const isAddProduct = useSelector(state => state.product.isAddProduct)
@@ -57,6 +58,8 @@ function Example() {
       <Route exact path="/Admin/Post/:id" >
         {isEditpost ? <Redirect to="/Admin/ListPost" /> : <EditPostContainer />}
       </Route>
+      <Route exact path="/Admin/ListOrders" component={OrderContainer} />
+      <Route exact path="/Admin/SingleOrder/:id" component={SingleOrderContainer} />
       <Footer />
     </div>
   );

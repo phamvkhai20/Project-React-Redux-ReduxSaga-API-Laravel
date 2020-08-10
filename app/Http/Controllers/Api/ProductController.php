@@ -49,6 +49,12 @@ class ProductController extends Controller
         return Product::whereIn('id',$gg)->get();
     }
 
+    public function deleteList($arr)
+    {
+        $gg= explode(',', $arr);
+        return Product::whereIn('id',$gg)->delete();
+    }
+
     /**
      * Update the specified resource in storage.
      *

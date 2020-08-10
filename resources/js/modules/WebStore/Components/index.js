@@ -17,6 +17,8 @@ import ProductCategoryContainer from '../Containers/ProductCategoryContainer';
 import CheckoutContainer from '../Containers/CheckoutContainer';
 import OrderSuccsess from './Cart/OrderSuccsess';
 import ContactContainer from '../Containers/ContactContainer';
+import ShowPostContainer from '../Containers/ShowPostContainer';
+import SinglePostContainer from '../Containers/SinglePostContainer';
 const WebStore = ({GetCategory,LayTokenDangXuat}) => {
     const user = useSelector(state => state.auth.infoUser);
     return (
@@ -34,6 +36,10 @@ const WebStore = ({GetCategory,LayTokenDangXuat}) => {
             </Route>
             <Route  exact path='/Store/OrderSuccess' component={OrderSuccsess} />
             <Route  exact path='/Store/Contact' component={ContactContainer} />
+            <Route exact path='/Store/SinglePost/:id'  component={SinglePostContainer}/>
+            <Route to="/Store/Post/" exact>
+                <ShowPostContainer />
+            </Route>
             </Switch>
         <Footer />
     </div>

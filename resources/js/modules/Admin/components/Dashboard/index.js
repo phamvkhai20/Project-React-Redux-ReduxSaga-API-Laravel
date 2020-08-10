@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-
 const Dashboard = ({ getContacts,getOders }) => {
     const [StateContact, setStateContact] = useState();
     useEffect(() => {
@@ -10,13 +9,16 @@ const Dashboard = ({ getContacts,getOders }) => {
     }, [])
     const posts = useSelector(state => state.post.posts);
     const orders = useSelector(state => state.cart.orders);
+
+    const [StateOrder, setStateOrder] = useState()
+    orders&&!StateOrder&&setStateOrder(orders)
     const ProductAll = useSelector(state => state.product.products);
     const contacts = useSelector(state => state.contact.contacts);
     (contacts && !StateContact) && setStateContact(contacts);
     const tongtien=[];
-    orders&&orders.map(order=>{
+    StateOrder&&StateOrder.map(order=>{
         tongtien.push(Number(order.tong_tien));
-        console.log(tongtien)}
+       }
     )
     const tinhTongTien= tongtien.reduce(function(a, b){return a + b; }, 0);
 
@@ -45,7 +47,7 @@ const Dashboard = ({ getContacts,getOders }) => {
                             <div class="card-box tilebox-one">
                                 <i class="fi-box float-right"></i>
                                 <h6 class="text-muted text-uppercase mb-3">Đơn Hàng</h6>
-                                <h4 class="mb-3" data-plugin="counterup">{orders.length}</h4>
+                                <h4 class="mb-3" data-plugin="counterup">{StateOrder&&StateOrder.length}</h4>
                                 <span class="badge badge-primary"> +11% </span> <span class="text-muted ml-2 vertical-middle">From previous period</span>
                             </div>
                         </div>
@@ -83,11 +85,10 @@ const Dashboard = ({ getContacts,getOders }) => {
                                     <ul class="message-list">
                                         {StateContact&&StateContact.map((contact,index)=>
                                        <li class="unread">
-                                            <a href="">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="checkbox-wrapper-mail">
-                                                        <input type="checkbox" id="chk1" />
-                                                        <label for="chk1" class="toggle"></label>
+                                                        <input type="checkbox" id={`chk${contact.id}`} name="check" />
+                                                        <label for={`chk${contact.id}`} class="toggle"></label>
                                                     </div>
                                                     <p class="title" style={{fontWeight:"bold"}}> {contact.email}</p><span
                                                         class="star-toggle fa fa-star-o"></span>
@@ -98,7 +99,6 @@ const Dashboard = ({ getContacts,getOders }) => {
                                                     </div>
                                                     <div class="date" style={{paddingLeft:"50px"}}>{contact.created_at.substr(0,10)}</div>
                                                 </div>
-                                            </a>
                                         </li>
                                     )
                                     }

@@ -40,8 +40,9 @@ const Header = ({LayTokenDangXuat,getProductCategory,GetCategory}) => {
             <div className="col-6 col-md-4 order-3 order-md-3 text-right">
               <div className="site-top-icons">
                 <ul>
+
                   <li className=" dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a href="#"><span style={{fontSize:'25px',marginTop:'10px'}} className="icon icon-person "> </span><span> {user.name} </span> </a></li>
-                    <div className="dropdown-menu">
+                    {user?<div className="dropdown-menu">
                       <a className="dropdown-item" href="#">Thông tin cá nhân</a>
                       <a className="dropdown-item" href="#">Đơn hàng</a>
                       {user.role==2 ?
@@ -50,7 +51,12 @@ const Header = ({LayTokenDangXuat,getProductCategory,GetCategory}) => {
                       }
                       <div className="dropdown-divider"></div>
                       <a className="dropdown-item" href="#" onClick={()=>LayTokenDangXuat(token)} >Đăng xuất</a>
-                    </div>
+                    </div>:<div className="dropdown-menu">
+                      <Link className="dropdown-item" to="/Auth/Login">Đăng Nhập</Link>
+                    </div>}
+
+
+
                   <li><a href="#"><span className="icon icon-heart-o"></span></a></li>
                   <li>
                     <Link to="/Store/Cart"  className="site-cart">
@@ -69,7 +75,7 @@ const Header = ({LayTokenDangXuat,getProductCategory,GetCategory}) => {
       <nav className="site-navigation text-right text-md-center" role="navigation">
         <div className="container">
           <ul className="site-menu js-clone-nav d-none d-md-block">
-            <li className=" active">
+            <li >
               <Link to="/">TRANG CHỦ</Link>
             </li>
             <li className="has-children">
@@ -82,7 +88,7 @@ const Header = ({LayTokenDangXuat,getProductCategory,GetCategory}) => {
               </ul>
             </li>
             <li>
-              <Link to="/Store/shop">Bài viết</Link>
+              <Link to="/Store/Post">Bài viết</Link>
             </li>
             <li> <Link to="/Store/Contact">Liên hệ</Link></li>
           </ul>

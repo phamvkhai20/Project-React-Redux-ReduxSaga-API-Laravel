@@ -12,7 +12,7 @@ const Contact = ({guiContact}) => {
         history.push('/Store/OrderSuccess')
     };
     return (
-        <div className="container">
+        <div>
             <div class="bg-light py-3">
                 <div class="container">
                     <div class="row">

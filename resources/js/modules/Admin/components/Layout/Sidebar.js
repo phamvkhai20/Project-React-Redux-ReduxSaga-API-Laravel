@@ -48,7 +48,7 @@ const Sidebar = props => {
                         <li>
                             <a href="# " onClick={e => { void (0), e.preventDefault() }}><i className="fi-briefcase"></i> <span>Đơn hàng</span> <span className="menu-arrow"></span></a>
                             <ul className="nav-second-level" aria-expanded="false">
-                                <li><Link to="/Admin/ListPost">Danh sách</Link></li>
+                                <li><Link to="/Admin/ListOrders">Danh sách</Link></li>
                             </ul>
                         </li>
                         <li>

@@ -92,7 +92,7 @@ const EditPost = ({suaPost,tim1BaiViet}) => {
                     <form onSubmit={handleSubmit(onSubmit)} className="row">
                         <div className="col-xl">
                             <div className="card-box">
-                                <h4 className="header-title">Thêm danh mục</h4>
+                                <h4 className="header-title">Thêm bài viết</h4>
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="card-box">

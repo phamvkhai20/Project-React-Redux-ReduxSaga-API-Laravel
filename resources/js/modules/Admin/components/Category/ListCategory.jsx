@@ -32,7 +32,29 @@ const ListCategory = ({GetCategory,deleteCategory}) => {
         dispatch(setIsEditCate())
     }, 2000);
     const cate = useSelector(state => state.category.categories)
-    cate&&!categories ?setCategories(cate):''
+    cate&&!categories ?setCategories(cate):'';
+
+
+    const onHandleClickDeleteProduct=(id)=>{
+        Swal.fire({
+            title: 'Bạn có chắc chắn xóa ?',
+            text: "Sẽ xóa danh mục vĩnh viễn",
+            icon: 'Cảnh báo',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.value) {
+                onHandleClickDelete(id)
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+    }
     return (
         <div className="content-page">
             <div className="content">
@@ -76,7 +98,7 @@ const ListCategory = ({GetCategory,deleteCategory}) => {
                                                             <td>{cate.product.length}</td>  
                                                             {cate.id!==0?
                                                             <td>
-                                                                <button onClick={()=>onHandleClickDelete(cate.id)} className="btn btn-danger mr-3">Xóa</button>
+                                                                <button onClick={()=> onHandleClickDeleteProduct(cate.id)} className="btn btn-danger mr-3">Xóa</button>
                                                                 <Link to={`/Admin/Category/${cate.id}`} className="btn btn-primary">Sửa</Link>
                                                             </td>:<td></td>
                                                             }
