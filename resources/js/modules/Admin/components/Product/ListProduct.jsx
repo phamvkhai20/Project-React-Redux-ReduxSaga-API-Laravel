@@ -41,26 +41,23 @@ const ListProduct = ({ GetProduct, deleteProduct ,xoaList}) => {
     const handleClickChecked=(e)=>{
         const {name,value}=e.target;
             Checked.map((checked)=>
-            checked!==value?setChecked([...Checked,value]):setChecked(Checked.filter((checkeds)=>checkeds!==value))
+            checked!==value?setChecked([...Checked,Number(value)]):setChecked(Checked.filter((checkeds)=>checkeds!==Number(value)))
         )
+        console.log(Checked)
     }
 
-    const mangChk=[]
     const deleteList=()=>{
-        Checked.map((chk)=>
-        {   
-            mangChk.push(Number(chk));
-        }
-        )
-        mangChk.map((chk)=>
-        setChecked(Checked.filter((product)=>product!==chk))
-        )
-
-        const chuyenSangString=JSON.stringify(mangChk);
+        const chuyenSangString=JSON.stringify(Checked);
         const lengths=chuyenSangString.length-2
         const CatMang=chuyenSangString.substr(1,lengths)
-        xoaList(CatMang)
-        GetProduct()
+        // xoaList(CatMang)
+        const gg=itemProducts
+        const res=gg.filter((product)=>
+            Checked.indexOf(product.id)!==1
+            )
+            console.log(res)
+        // setitemProducts(res)
+        // GetProduct()
     }
 
     const [DemAdd, setDemAdd] = useState(0)

@@ -43,7 +43,6 @@ const AddProduct = ({ ThemSanPham, GetCategory }) => {
         if (e.target.files[0]) {
             const imageAvatar=e.target.files[0];
             const uploadTask = storage.ref(`images/${imageAvatar.name}`).put(imageAvatar);
-            console.log(uploadTask)
             uploadTask.on(
                 "state_changed",
                 snapshot => {},

@@ -19,27 +19,29 @@ import OrderSuccsess from './Cart/OrderSuccsess';
 import ContactContainer from '../Containers/ContactContainer';
 import ShowPostContainer from '../Containers/ShowPostContainer';
 import SinglePostContainer from '../Containers/SinglePostContainer';
+import SearchProduct from './Search/SearchProduct';
 const WebStore = ({GetCategory,LayTokenDangXuat}) => {
     const user = useSelector(state => state.auth.infoUser);
     return (
     <div className="site-wrap" style={{backgroundColor:"#fff"}}>
         <HeaderContainer/>
             <Switch>
+
+            <Route  exact path='/Store/Search/:key'>
+                <SearchProduct />
+            </Route>
             <Route exact path='/Store/' component={HomePage}/>
             <Route exact path='/' component={HomePage}/>
             <Route exact path='/Store/Checkout' component={CheckoutContainer}/>
             <Route exact path='/Store/Cart/' component={CarContainer}/>
             <Route exact path='/Store/Product/:id'  component={SingleProductContainer}/>
             <Route exact path='/Store/Category/:id'  component={ProductCategoryContainer}/>
-            <Route path='/Store/Shop/'>
-                 <ShopContainer />
-            </Route>
+            <Route path='/Store/Shop/' exact component={ShopContainer} />
             <Route  exact path='/Store/OrderSuccess' component={OrderSuccsess} />
             <Route  exact path='/Store/Contact' component={ContactContainer} />
             <Route exact path='/Store/SinglePost/:id'  component={SinglePostContainer}/>
-            <Route to="/Store/Post/" exact>
-                <ShowPostContainer />
-            </Route>
+            <Route to="/Store/Post/" exact component={ShowPostContainer} />
+              
             </Switch>
         <Footer />
     </div>
